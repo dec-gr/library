@@ -25,6 +25,9 @@ const createBookCard = (book, index) => {
   bookdiv.classList.add("book-card");
   bookdiv.setAttribute("id", index);
 
+  const contentdiv = document.createElement("div");
+  contentdiv.classList.add("content-holder");
+
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("deleteButton");
   deleteButton.textContent = "X";
@@ -62,12 +65,14 @@ const createBookCard = (book, index) => {
   //   bookisRead.classList.add("isRead");
   //   bookisRead.textContent = book.isRead;
 
-  bookdiv.appendChild(deleteButton);
-  bookdiv.appendChild(booktitle);
-  bookdiv.appendChild(bookauthor);
-  bookdiv.appendChild(bookpages);
+  contentdiv.appendChild(deleteButton);
+  contentdiv.appendChild(booktitle);
+  contentdiv.appendChild(bookauthor);
+  contentdiv.appendChild(bookpages);
   //   bookdiv.appendChild(bookisRead);
-  bookdiv.appendChild(readButton);
+  contentdiv.appendChild(readButton);
+
+  bookdiv.appendChild(contentdiv);
 
   library.appendChild(bookdiv);
 };
