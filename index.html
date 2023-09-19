@@ -14,16 +14,51 @@
         <p>My Library</p>
       </div>
       <div class="button-container">
-        <button>Add Book</button>
+        <p>
+          <button id="showDialog">Add Book</button>
+        </p>
       </div>
     </div>
     <div class="bookshelf">
-      <div class="book-card" id="book-3">
+      <!-- <div class="book-card" id="book-1">
         <p class="title">The Hobbit</p>
         <p class="author">JRR Tolkein</p>
         <p class="pages">269</p>
         <p class="isRead">True</p>
-      </div>
+      </div> -->
     </div>
+    <!-- A modal dialog containing a form -->
+    <dialog id="favDialog">
+      <form>
+        <p>
+          <label>
+            Title:
+            <input type="text" name="book-title" id="book-title" />
+          </label>
+        </p>
+        <p>
+          <label>
+            Author:
+            <input type="text" name="book-author" id="book-author" />
+          </label>
+        </p>
+        <p>
+          <label>
+            Pages:
+            <input type="text" name="book-pages" id="book-pages" />
+          </label>
+        </p>
+        <p>
+          <label>
+            Read?:
+            <input type="checkbox" name="book-isRead" id="book-isRead" />
+          </label>
+        </p>
+        <div>
+          <button value="cancel" formmethod="dialog">Cancel</button>
+          <button id="confirmBtn" value="default">Confirm</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

@@ -1,20 +1,46 @@
 const myLibrary = [];
 
-function Book(title, author, numPages, isRead) {
+function Book(title, author, pages, isRead, bookIdNumber) {
   this.title = title;
   this.author = author;
-  this.numPages = numPages;
+  this.pages = pages;
   this.isRead = isRead;
+  this.bookIdNumber = bookIdNumber;
 }
 
 function addBookToLibrary(Book) {
   myLibrary.push(Book);
 }
 
-const createBookCard = (book) => {
+function displayLibrary() {
   const library = document.querySelector(".bookshelf");
+  library.innerHTML = "";
+  myLibrary.forEach((index, book) => createBookCard(index, book));
+}
+
+const createBookCard = (book, index) => {
+  const library = document.querySelector(".bookshelf");
+
   const bookdiv = document.createElement("div");
   bookdiv.classList.add("book-card");
+  bookdiv.setAttribute("id", index);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("deleteButton");
+  deleteButton.textContent = "X";
+  deleteButton.addEventListener("click", function (e) {
+    myLibrary.splice(index, 1);
+    this.parentNode.remove();
+    displayLibrary();
+  });
+
+  const readButton = document.createElement("button");
+  readButton.classList.add("isRead");
+  readButton.textContent = "Read";
+  readButton.addEventListener("click", function (e) {
+    myLibrary[index].isRead = !myLibrary[index].isRead;
+    displayLibrary();
+  });
 
   const booktitle = document.createElement("p");
   booktitle.classList.add("title");
@@ -32,27 +58,60 @@ const createBookCard = (book) => {
   bookisRead.classList.add("isRead");
   bookisRead.textContent = book.isRead;
 
+  const bookIdNumber = document.createElement("p");
+  //   bookisRead.classList.add("isRead");
+  bookIdNumber.textContent = book.bookIdNumber;
+
+  bookdiv.appendChild(deleteButton);
   bookdiv.appendChild(booktitle);
   bookdiv.appendChild(bookauthor);
   bookdiv.appendChild(bookpages);
   bookdiv.appendChild(bookisRead);
+  bookdiv.appendChild(bookIdNumber);
+  bookdiv.appendChild(readButton);
 
   library.appendChild(bookdiv);
 };
 
-let theHobbit = new Book("The Hobbit", "JRR Tolkein", "269", false);
+const showButton = document.getElementById("showDialog");
+const favDialog = document.getElementById("favDialog");
+const outputBox = document.querySelector("output");
+const titleInput = document.getElementById("book-title");
+const authorInput = document.getElementById("book-author");
+const pagesInput = document.getElementById("book-pages");
+const isReadInput = document.getElementById("book-isRead");
 
-let projectHailMary = new Book("Project Hail Mary", "Any Weir", "352", true);
+const inputs = document.querySelectorAll("input");
 
-let slaughterHouseFive = new Book(
-  "Slaughter House Five",
-  "Kurt Vonnegut",
-  "110",
-  true
-);
+// const selectEl = favDialog.querySelector("select");
+const confirmBtn = favDialog.querySelector("#confirmBtn");
 
-addBookToLibrary(theHobbit);
-addBookToLibrary(projectHailMary);
-addBookToLibrary(slaughterHouseFive);
+// "Show the dialog" button opens the <dialog> modally
+showButton.addEventListener("click", () => {
+  favDialog.showModal();
+});
 
-myLibrary.forEach(createBookCard);
+// Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
+confirmBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // We don't want to submit this fake form
+  const book = new Book(
+    titleInput.value,
+    authorInput.value,
+    pagesInput.value,
+    isReadInput.checked,
+    (bookIdNumber = `book-${myLibrary.length + 1}`)
+  );
+
+  console.log(myLibrary.length);
+
+  addBookToLibrary(book);
+
+  displayLibrary();
+
+  //createBookCard(book);
+
+  favDialog.close(); // Have to send the select box value here.
+
+  inputs.forEach((input) => (input.value = ""));
+  isReadInput.checked = false;
+});

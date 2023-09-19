@@ -16,6 +16,7 @@
   border: solid black 1px;
   padding: 2rem;
   background-color: #ca8b0433;
+  min-height: 12rem;
 }
 
 .book-card {
