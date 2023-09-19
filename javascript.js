@@ -8,6 +8,10 @@ function Book(title, author, pages, isRead, bookIdNumber) {
   this.bookIdNumber = bookIdNumber;
 }
 
+Book.prototype.read = function () {
+  this.isRead = !this.isRead;
+};
+
 function addBookToLibrary(Book) {
   myLibrary.push(Book);
 }
@@ -45,7 +49,7 @@ const createBookCard = (book, index) => {
   }
 
   readButton.addEventListener("click", function (e) {
-    myLibrary[index].isRead = !myLibrary[index].isRead;
+    myLibrary[index].read();
     displayLibrary();
   });
 
