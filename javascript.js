@@ -35,8 +35,12 @@ const createBookCard = (book, index) => {
   });
 
   const readButton = document.createElement("button");
-  readButton.classList.add("isRead");
+  readButton.classList.add("isReadButton");
   readButton.textContent = "Read";
+  if (book.isRead) {
+    readButton.classList.add("isRead");
+  }
+
   readButton.addEventListener("click", function (e) {
     myLibrary[index].isRead = !myLibrary[index].isRead;
     displayLibrary();
@@ -54,20 +58,15 @@ const createBookCard = (book, index) => {
   bookpages.classList.add("pages");
   bookpages.textContent = book.pages;
 
-  const bookisRead = document.createElement("p");
-  bookisRead.classList.add("isRead");
-  bookisRead.textContent = book.isRead;
-
-  const bookIdNumber = document.createElement("p");
+  //   const bookisRead = document.createElement("p");
   //   bookisRead.classList.add("isRead");
-  bookIdNumber.textContent = book.bookIdNumber;
+  //   bookisRead.textContent = book.isRead;
 
   bookdiv.appendChild(deleteButton);
   bookdiv.appendChild(booktitle);
   bookdiv.appendChild(bookauthor);
   bookdiv.appendChild(bookpages);
-  bookdiv.appendChild(bookisRead);
-  bookdiv.appendChild(bookIdNumber);
+  //   bookdiv.appendChild(bookisRead);
   bookdiv.appendChild(readButton);
 
   library.appendChild(bookdiv);

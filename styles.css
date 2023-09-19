@@ -1,11 +1,27 @@
+body {
+  background-color: #fee2e2;
+}
+
 .library-container {
   display: flex;
   justify-content: space-between;
 }
 
 .library-container > div {
-  width: 5rem;
+  width: 10rem;
   text-align: center;
+}
+
+.library-container p {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+#showDialog {
+  background-color: color-mix(in srgb, #e0f2fe, black 10%);
+
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .bookshelf {
@@ -16,15 +32,103 @@
   border: solid black 1px;
   padding: 2rem;
   background-color: #ca8b0433;
+
   min-height: 12rem;
+  z-index: 1;
 }
 
 .book-card {
-  background-color: rgb(255, 255, 255);
+  --color: #e0f2fe;
+  background-color: var(--color);
   border: solid black 1px;
   height: 10rem;
   width: 6rem;
-  overflow: auto;
+  /* overflow: auto; */
   padding: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  display: grid;
+  transform: skewY(-15deg);
+  z-index: 3;
+  position: relative;
+}
+
+.book-card:hover {
+  left: -10px;
+}
+
+.book-card::before {
+  border: solid black 1px;
+  content: "";
+  z-index: 5;
+  width: 20px;
+  height: 100%;
+  left: -22.5px;
+  bottom: 10px;
+  position: absolute;
+
+  background-color: color-mix(in srgb, var(--color), black 20%);
+
+  /* background-color: #e0f2fe; */
+  transform: skewY(45deg);
+  display: block;
+  transform: background-color 300ms;
+}
+
+.book-card::after {
+  border: solid black 1px;
+  content: "";
+  width: 100%;
+  position: absolute;
+  height: 20px;
+  left: -11.5px;
+  top: -23px;
+  background-color: color-mix(in srgb, var(--color), black 20%);
+  z-index: -1;
+  transform: skewX(45deg);
+  transition: background-color 300ms;
+}
+
+.deleteButton {
+  width: 20px;
+  height: 20px;
+  justify-self: right;
+}
+
+.book-card p {
+  font-size: 1rem;
+  height: 2px;
+  margin: 0px;
+}
+
+button {
+  border: None;
+  background-color: #e7e5e4;
+}
+
+.isReadButton {
+  width: 45px;
+  height: 20px;
+}
+
+button.isRead {
+  background-color: #34d399;
+}
+
+#favDialog {
+  position: absolute;
+  top: -50px;
+  right: 0px;
+  bottom: 0;
+  left: 0;
+}
+
+#favDialog input {
+  text-align: left;
+  width: 100px;
+  margin-left: 8px;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
 }
