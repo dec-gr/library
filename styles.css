@@ -1,0 +1,29 @@
+.library-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.library-container > div {
+  width: 5rem;
+  text-align: center;
+}
+
+.bookshelf {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 10px;
+  border: solid black 1px;
+  padding: 2rem;
+  background-color: #ca8b0433;
+}
+
+.book-card {
+  background-color: rgb(255, 255, 255);
+  border: solid black 1px;
+  height: 10rem;
+  width: 6rem;
+  overflow: auto;
+  padding: 5px;
+  border-radius: 10px;
+}
