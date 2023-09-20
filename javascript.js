@@ -1,16 +1,30 @@
 const myLibrary = [];
 
-function Book(title, author, pages, isRead, bookIdNumber) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-  this.bookIdNumber = bookIdNumber;
-}
+// function Book(title, author, pages, isRead, bookIdNumber) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.isRead = isRead;
+//   this.bookIdNumber = bookIdNumber;
+// }
 
-Book.prototype.read = function () {
-  this.isRead = !this.isRead;
-};
+// Book.prototype.read = function () {
+//   this.isRead = !this.isRead;
+// };
+
+class Book {
+  constructor(title, author, pages, isRead, bookIdNumber) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+    this.bookIdNumber = bookIdNumber;
+  }
+
+  read() {
+    this.isRead = !this.isRead;
+  }
+}
 
 function addBookToLibrary(Book) {
   myLibrary.push(Book);
