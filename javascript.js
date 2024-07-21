@@ -31,52 +31,52 @@ function addBookToLibrary(Book) {
 }
 
 function displayLibrary() {
-  const library = document.querySelector(".bookshelf");
-  library.innerHTML = "";
+  const library = document.querySelector('.bookshelf');
+  library.innerHTML = '';
   myLibrary.forEach((index, book) => createBookCard(index, book));
 }
 
 const createBookCard = (book, index) => {
-  const library = document.querySelector(".bookshelf");
+  const library = document.querySelector('.bookshelf');
 
-  const bookdiv = document.createElement("div");
-  bookdiv.classList.add("book-card");
-  bookdiv.setAttribute("id", index);
+  const bookdiv = document.createElement('div');
+  bookdiv.classList.add('book-card');
+  bookdiv.setAttribute('id', index);
 
-  const contentdiv = document.createElement("div");
-  contentdiv.classList.add("content-holder");
+  const contentdiv = document.createElement('div');
+  contentdiv.classList.add('content-holder');
 
-  const deleteButton = document.createElement("button");
-  deleteButton.classList.add("deleteButton");
-  deleteButton.textContent = "X";
-  deleteButton.addEventListener("click", function (e) {
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('deleteButton');
+  deleteButton.textContent = 'X';
+  deleteButton.addEventListener('click', function (e) {
     myLibrary.splice(index, 1);
     this.parentNode.remove();
     displayLibrary();
   });
 
-  const readButton = document.createElement("button");
-  readButton.classList.add("isReadButton");
-  readButton.textContent = "Read";
+  const readButton = document.createElement('button');
+  readButton.classList.add('isReadButton');
+  readButton.textContent = 'Read';
   if (book.isRead) {
-    readButton.classList.add("isRead");
+    readButton.classList.add('isRead');
   }
 
-  readButton.addEventListener("click", function (e) {
+  readButton.addEventListener('click', function (e) {
     myLibrary[index].read();
     displayLibrary();
   });
 
-  const booktitle = document.createElement("p");
-  booktitle.classList.add("title");
+  const booktitle = document.createElement('p');
+  booktitle.classList.add('title');
   booktitle.textContent = book.title;
 
-  const bookauthor = document.createElement("p");
-  bookauthor.classList.add("author");
+  const bookauthor = document.createElement('p');
+  bookauthor.classList.add('author');
   bookauthor.textContent = book.author;
 
-  const bookpages = document.createElement("p");
-  bookpages.classList.add("pages");
+  const bookpages = document.createElement('p');
+  bookpages.classList.add('pages');
   bookpages.textContent = book.pages;
 
   //   const bookisRead = document.createElement("p");
@@ -95,45 +95,59 @@ const createBookCard = (book, index) => {
   library.appendChild(bookdiv);
 };
 
-const showButton = document.getElementById("showDialog");
-const favDialog = document.getElementById("favDialog");
-const outputBox = document.querySelector("output");
-const titleInput = document.getElementById("book-title");
-const authorInput = document.getElementById("book-author");
-const pagesInput = document.getElementById("book-pages");
-const isReadInput = document.getElementById("book-isRead");
+const showButton = document.getElementById('showDialog');
+const favDialog = document.getElementById('favDialog');
+const outputBox = document.querySelector('output');
+const titleInput = document.getElementById('book-title');
+const authorInput = document.getElementById('book-author');
+const pagesInput = document.getElementById('book-pages');
+const isReadInput = document.getElementById('book-isRead');
 
-const inputs = document.querySelectorAll("input");
+const inputs = document.querySelectorAll('input');
 
 // const selectEl = favDialog.querySelector("select");
-const confirmBtn = favDialog.querySelector("#confirmBtn");
+const confirmBtn = favDialog.querySelector('#confirmBtn');
 
 // "Show the dialog" button opens the <dialog> modally
-showButton.addEventListener("click", () => {
+showButton.addEventListener('click', () => {
   favDialog.showModal();
 });
 
 // Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
-confirmBtn.addEventListener("click", (event) => {
-  event.preventDefault(); // We don't want to submit this fake form
-  const book = new Book(
-    titleInput.value,
-    authorInput.value,
-    pagesInput.value,
-    isReadInput.checked,
-    (bookIdNumber = `book-${myLibrary.length + 1}`)
-  );
+confirmBtn.addEventListener('click', (event) => {
+  if (
+    titleInput.validity.valid &&
+    authorInput.validity.valid &&
+    pagesInput.validity.valid
+  ) {
+    // If all are valid, prevent default (because we don't want to submit and use normal function)
+    event.preventDefault();
+    console.log(titleInput.validity.valid);
+    console.log(authorInput.validity.valid);
+    console.log(pagesInput.validity.valid);
 
-  console.log(myLibrary.length);
+    // We don't want to submit this fake form
+    // return false;
+    const book = new Book(
+      titleInput.value,
+      authorInput.value,
+      pagesInput.value,
+      isReadInput.checked,
+      (bookIdNumber = `book-${myLibrary.length + 1}`)
+    );
 
-  addBookToLibrary(book);
+    console.log(myLibrary.length);
 
-  displayLibrary();
+    addBookToLibrary(book);
 
-  //createBookCard(book);
+    displayLibrary();
 
-  favDialog.close(); // Have to send the select box value here.
+    //createBookCard(book);
 
-  inputs.forEach((input) => (input.value = ""));
-  isReadInput.checked = false;
+    favDialog.close(); // Have to send the select box value here.
+
+    inputs.forEach((input) => (input.value = ''));
+    isReadInput.checked = false;
+  }
+  // If all not valid, event default isn't prevented so html handles the error notices
 });
